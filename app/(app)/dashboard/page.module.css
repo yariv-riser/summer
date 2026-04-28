@@ -1,0 +1,122 @@
+.page {
+  min-height: 100dvh;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  & .header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    & .title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    & .subtitle {
+      margin: 0;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    & .sign-out-button {
+      background: transparent;
+      color: #0470c1;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+  }
+
+  & .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  & .preset-row {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    & .legend {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+  }
+
+  & .preset-chip {
+    background: #f5f5f5;
+    color: #111;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #ececec;
+    }
+  }
+
+  & .preset-chip-active {
+    background: #0470c1;
+    color: #fff;
+    border-color: #0470c1;
+
+    &:hover {
+      background: #0470c1;
+      opacity: 0.9;
+    }
+  }
+
+  & .custom-range-link {
+    color: #0470c1;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    align-self: flex-start;
+  }
+
+  & .submit-button {
+    background: #ffbf03;
+    color: #111;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
