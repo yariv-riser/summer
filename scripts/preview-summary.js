@@ -28,10 +28,15 @@ const toIso = new Date(now * 1000).toISOString().slice(0, 10);
 console.log(`window: ${fromIso} → ${toIso}`);
 
 const accessToken = await getValidAccessToken(userId);
-const ids = await listMessages(accessToken, {
-  q: `category:purchases after:${after} before:${now}`,
-  maxResults: 50,
-});
+const subjectTerms = [
+  'receipt', 'invoice', 'order', 'payment', 'purchase',
+  'קבלה', 'חשבונית', 'הזמנה',
+  'factura', 'fattura', 'fatura', 'rechnung',
+];
+const q =
+  `{category:purchases subject:(${subjectTerms.join(' OR ')})} ` +
+  `after:${after} before:${now}`;
+const ids = await listMessages(accessToken, { q, maxResults: 50 });
 console.log(`gmail: ${ids.length} candidates`);
 
 const emails = [];
