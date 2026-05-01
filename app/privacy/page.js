@@ -13,7 +13,7 @@ export default function PrivacyPage() {
         ← Back
       </Link>
       <h1 className={styles['title']}>Privacy Policy</h1>
-      <p className={styles['updated']}>Last updated: April 28, 2026</p>
+      <p className={styles['updated']}>Last updated: May 1, 2026</p>
 
       <p>
         Summer is a personal-scale tool that summarises receipts and invoices from
@@ -47,6 +47,74 @@ export default function PrivacyPage() {
         run is computed from scratch in memory and discarded when the worker
         finishes.
       </p>
+
+      <h2>Security and data protection</h2>
+      <ul>
+        <li>
+          <strong>Encryption in transit.</strong> All requests between Summer and
+          external services — Google OAuth, the Gmail API, the Gemini API,
+          frankfurter.dev, Supabase, Upstash QStash, and your browser — are made
+          over HTTPS/TLS. The site is served from Vercel with TLS termination at
+          the edge.
+        </li>
+        <li>
+          <strong>Encryption at rest.</strong> OAuth tokens, profile records, and
+          session rows live in Supabase-hosted Postgres, which encrypts stored
+          data with AES-256 by default.
+        </li>
+        <li>
+          <strong>Scoped, revocable access.</strong> Google OAuth tokens are
+          stored per user and can only be used to act on that user&apos;s own
+          mailbox. The application never lets one signed-in user trigger a
+          summary against another user&apos;s account.
+        </li>
+        <li>
+          <strong>No long-term retention of email content.</strong>{' '}
+          Receipt-candidate messages, extracted fields, and the rendered summary
+          exist only in worker memory for the duration of a single job
+          (typically under a minute). Nothing from the email body is written to
+          a database, log, or analytics store.
+        </li>
+        <li>
+          <strong>Signed background jobs.</strong> Summary work runs in an
+          Upstash QStash worker whose every invocation is verified against
+          Upstash&apos;s signing keys, so the worker only executes payloads that
+          were actually enqueued by Summer.
+        </li>
+        <li>
+          <strong>Secrets management.</strong> API keys and signing keys
+          (Google, Gemini, QStash, Supabase) are stored as Vercel environment
+          variables, not in the source repository, and are scoped to the
+          production deployment.
+        </li>
+        <li>
+          <strong>Least-privilege OAuth scopes.</strong> Summer requests only{' '}
+          <code>gmail.readonly</code> (to read receipt-candidate messages) and{' '}
+          <code>gmail.send</code> (to email the summary back to the same
+          signed-in user). It does not request modify, delete, or label-change
+          scopes.
+        </li>
+        <li>
+          <strong>Limited recipient set.</strong> The summary email is always
+          sent from the signed-in user to themselves; Summer never sends Gmail
+          content to a third-party recipient.
+        </li>
+        <li>
+          <strong>Account and token deletion.</strong> You can revoke
+          Summer&apos;s access at any time via{' '}
+          <a href="https://myaccount.google.com/permissions">
+            myaccount.google.com/permissions
+          </a>
+          , which immediately invalidates the stored tokens. Account-record
+          deletion can be requested by emailing{' '}
+          <a href="mailto:yariv@riser.co.il">yariv@riser.co.il</a>.
+        </li>
+        <li>
+          <strong>Incident response.</strong> If Summer becomes aware of a
+          breach affecting user data, affected users will be notified by email
+          at the address on file.
+        </li>
+      </ul>
 
       <h2>How your email is processed</h2>
       <p>
